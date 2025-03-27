@@ -87,24 +87,23 @@ function procj(data){
     return html;
     }
     
-    if(Object.keys(data).length%2==0){
-        var tabledata = "<tr>";
-        for(var i=0;i<Object.keys(data).length;i++){
-            tabledata += html(Object.keys(data)[i],Object.values(data)[i]);
-            if((i+1)%2==0){
-                
-                tabledata += "</tr>";
-                tabledata += "<tr>";
-            }
-
+    var tabledata = "<tr>";
+    var projectCount = Object.keys(data).length;
+    
+    for(var i=0;i<projectCount;i++){
+        tabledata += html(Object.keys(data)[i],Object.values(data)[i]);
+        if((i+1)%2==0 && i < projectCount-1){
+            tabledata += "</tr><tr>";
         }
-        tabledata += "</tr>"
-        
     }
-   
+    
+    // If we have an odd number of projects, add an empty cell to maintain layout
+    if(projectCount % 2 !== 0) {
+        tabledata += "<td style='visibility: hidden;'></td>";
+    }
+    
+    tabledata += "</tr>";
     return tabledata;
-            
-   
 }
 
 
